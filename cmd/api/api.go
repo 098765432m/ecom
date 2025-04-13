@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/098765432m/ecom/services/product"
 	"github.com/098765432m/ecom/services/user"
 	"github.com/gorilla/mux"
 )
@@ -31,6 +32,10 @@ func (s *APIServer) Run() error {
 	userStore := user.NewStore(s.db)
 	userHandler := user.NewHandler(userStore)
 	userHandler.RegisterRoutes(subRouter)
+
+	productStore := product.NewStore(s.db)
+	productHandler := product.NewHandler(productStore, userStore)
+	productHandler.RegisterRoutes(subRouter)
 
 	log.Println("Server is running on port", s.addr)
 

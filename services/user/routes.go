@@ -56,7 +56,7 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.WtiteJSON(w, http.StatusOK, map[string]string{"token": token})
+	utils.WriteJSON(w, http.StatusOK, map[string]string{"token": token})
 }
 
 // Handler Register action
@@ -103,5 +103,5 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.WtiteJSON(w, http.StatusCreated, nil)
+	utils.WriteJSON(w, http.StatusCreated, nil)
 }
