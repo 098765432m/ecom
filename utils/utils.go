@@ -1,0 +1,26 @@
+package utils
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
+func ParseJSON(r *http.Request, payload any) error {
+	if r.Body == nil {
+		return fmt.Errorf("Missing requesy body")
+	}
+
+	return json.NewDecoder(r.Body).Decode(payload)
+}
+
+func WtiteJSON(w http.ResponseWriter, status int, v any) error {
+	w.Header().Add("Contect-Type", "application/json")
+	w.WriteHeader(status)
+
+	return json.NewEncoder(w).Encode(v)
+}
+
+func WriteError(w http.ResponseWriter, status int, err error) {
+	WtiteJSON(w, status, map[string]string{"error": err.Error()})
+}
