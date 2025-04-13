@@ -3,6 +3,7 @@ package user
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -45,7 +46,7 @@ func TestUserServiceHandlers(t *testing.T) {
 type mockUserStore struct{}
 
 func (m *mockUserStore) GetUserByEmail(email string) (*types.User, error) {
-	return nil, nil
+	return nil, fmt.Errorf("user with email %s already exists", email)
 }
 func (m *mockUserStore) GetUserById(id int) (*types.User, error) {
 	return nil, nil
